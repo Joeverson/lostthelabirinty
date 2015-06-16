@@ -1,0 +1,34 @@
+package controllers;
+
+import java.awt.List;
+
+import models.ObjectLabirinty;
+
+
+public class GenerateLabirinty {
+	private static ObjectLabirinty[][] labirinties;
+	//nivel de labirinto -- tamando do quadrado
+	private static int lvLabirinty;
+	
+	public GenerateLabirinty() {}
+	
+	//metodo para gerar o labirinto
+	public static void generate(int i){
+		lvLabirinty = i;
+		labirinties = new ObjectLabirinty[i][i];
+		
+		for(int k = 0; k < i; k++){			
+			for(int j = 0; j < i; j++){
+				labirinties[k][j] = new ObjectLabirinty();
+			}
+		}
+	}
+	
+	
+	//adicionar paredes
+	public static void addWall(){
+		int quantWallForLines = lvLabirinty/2;
+		System.out.println("--> "+quantWallForLines);
+	}
+
+}

@@ -1,0 +1,52 @@
+package models;
+
+public class ObjectLabirinty {
+	private int x;
+	private int y;
+	private Object containt;
+	private boolean border;
+	private boolean borderLeft;
+	private boolean borderRight;
+	private boolean borderTop;
+	private boolean borderBottom;
+	private boolean start;
+	private boolean finish;
+	
+	public ObjectLabirinty(int x, int y){
+		this.x = x;
+		this.y = y;
+	}
+
+	public Object getContaint() {
+		return containt;
+	}
+
+	public void setContaint(Object containt) {
+		this.containt = containt;
+	}
+
+	public boolean isBorder() {
+		return border;
+	}
+
+	public void setBorder(boolean border) {
+		this.border = border;
+	}
+
+	public boolean isStart() {
+		return start;
+	}
+
+	public void setStart(boolean start) {
+		this.start = start;
+	}
+
+	public boolean isFinish() {
+		return finish;
+	}
+
+	public void setFinish(boolean finish) {
+		this.finish = finish;
+	}
+	
+}

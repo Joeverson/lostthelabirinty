@@ -1,0 +1,21 @@
+package models;
+
+public class wall extends Container{
+	private String type = "wall";
+	
+	public wall() {
+		super();
+	}
+
+	public String getType() {
+		// TODO Auto-generated method stub
+		return this.type;
+	}
+
+	
+	public String getMsg() {
+		// TODO Auto-generated method stub
+		return "ohh! uma parede aqui.";
+	}
+
+}

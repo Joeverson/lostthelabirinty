@@ -1,0 +1,16 @@
+package aplications;
+
+import java.util.Scanner;
+
+import controllers.GenerateLabirinty;
+
+public class aplications0 {
+
+	public static void main(String[] args) {
+		GenerateLabirinty.generate(6);
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println(sc.nextLine());
+	}
+
+}

@@ -1,0 +1,9 @@
+package controllers;
+
+public class GenerateLabirinty {
+
+	public GenerateLabirinty() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

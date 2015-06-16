@@ -1,0 +1,9 @@
+package models;
+
+public class wall {
+
+	public wall() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

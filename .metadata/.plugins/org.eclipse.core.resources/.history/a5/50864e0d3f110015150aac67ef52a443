@@ -1,0 +1,23 @@
+package controllers;
+
+import java.awt.List;
+
+import models.ObjectLabirinty;
+
+
+public class GenerateLabirinty {
+	public GenerateLabirinty() {}
+	
+	public static void generate(int i){
+		ObjectLabirinty labirinties = null;		
+		int n = 0;		
+		for(int k = 0; k < i; k++){
+			for(int j = 0; j < i; j++){
+				//labirinties[k][j] = new ObjectLabirinty(k, j, n);
+				System.out.println("k "+k+" - j "+j);
+				n++;
+			}
+		}
+	}
+
+}
