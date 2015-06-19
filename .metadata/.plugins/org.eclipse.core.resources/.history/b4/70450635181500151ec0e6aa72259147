@@ -1,0 +1,188 @@
+package controllers;
+
+import java.io.ObjectInputStream.GetField;
+
+import models.ObjectLabirinty;
+import models.Warrior;
+import models.wall;
+
+public class Move{
+	
+	private static ObjectLabirinty[][] labirinties;
+	private static Warrior warrior;
+	
+	private static int x;
+	private static int y;
+
+	public Move() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public static void setLabirinty(ObjectLabirinty[][] obj){
+		labirinties = obj;
+	}
+	
+	public static void setWarrior(Warrior w){
+		warrior = w;
+		x = warrior.getX();
+		y = warrior.getY();
+	}
+	
+	
+
+	//chamada de acçoes de passos
+		public static void steps(String steps){
+			switch(steps){
+				case "left":
+					goLeft(warrior);
+					break;
+				case "right":
+					goRight(warrior);
+					break;
+				case "top":
+					goTop(warrior);
+					break;
+				case "bottom":
+					goBottom(warrior);
+					break;
+				default:
+					System.out.println("Comando invalido! \n\n");				
+			}
+		}
+
+		// funções de navegação
+
+		
+		
+		//left
+		static void goLeft(Warrior w){	
+			if(labirinties[(x-1)][y].getContaint() == null && !labirinties[(x-1)][y].isBorder()){
+				labirinties[x-1][y].setContaint(w);
+				//nova posição do guerreiro
+				w.setX(x-1);
+				w.setY(y);
+				
+
+				//deixa nulo a posição anterior do guerreiro
+				labirinties[x][y].setContaint(null);
+
+				// decrementando a posição x do guerreiro
+				x--;
+
+				System.out.println("guerreiro esta no x = "+x);
+				System.out.println("guerreiro esta no y = "+y);
+
+			}else{
+				if(labirinties[(x-1)][y].isBorderLeft() && labirinties[(x-1)][y].isBorderTop()){
+					System.out.println("aqui é a borda lateral Superior esquerda!");
+				}else if(labirinties[(x-1)][y].isBorderLeft() && labirinties[(x-1)][y].isBorderBottom()){
+					System.out.println("aqui é a borda lateral inferior esquerda!");
+				}else if(labirinties[(x-1)][y].isBorderLeft()){
+					System.out.println("aqui é a borda lateral esquerda!");
+				}else{
+					System.out.println("objeto aqui");
+				}
+			}
+		}
+
+		//right
+		static void goRight(Warrior w){
+			if(labirinties[(x+1)][y].getContaint() == null && !labirinties[(x+1)][y].isBorder()){
+				labirinties[x+1][y].setContaint(w);
+				
+				//nova posição do guerreiro
+				w.setX(x+1);
+				w.setY(y);
+
+				//deixa nulo a posição anterior do guerreiro
+				labirinties[x][y].setContaint(null);
+
+				//imcrementando a posição x do guerreiro
+				x++;
+
+				System.out.println("guerreiro esta no x = "+x);
+				System.out.println("guerreiro esta no y = "+y);
+
+			}else{
+				if(labirinties[x+1][y].isBorderRight() && labirinties[x+1][y].isBorderTop()){
+					System.out.println("aqui é a borda lateral Superior direito!");
+				}else if(labirinties[x+1][y].isBorderRight() && labirinties[x+1][y].isBorderBottom()){
+					System.out.println("aqui é a borda lateral inferior direito!");
+				}else if(labirinties[x+1][y].isBorderRight()){
+					System.out.println("aqui é a borda lateral direito!");
+				}else{
+					System.out.println(( ( wall ) labirinties[x+1][y].getContaint() ).msg());
+				}
+			}
+		}
+
+		//top
+		static void goTop(Warrior w){
+			if(labirinties[(x)][y-1].getContaint() == null && !labirinties[(x)][y-1].isBorder()){
+				labirinties[x][y-1].setContaint(w);
+				
+				//nova posição do guerreiro
+				w.setX(x);
+				w.setY(y-1);
+
+				//deixa nulo a posição anterior do guerreiro
+				labirinties[x][y].setContaint(null);
+				
+				// decrementando o valor da posição y
+				y--;
+
+				System.out.println("guerreiro esta no x = "+x);
+				System.out.println("guerreiro esta no y = "+y);
+
+			}else{
+				if(labirinties[x][y-1].isBorderRight() && labirinties[x][y-1].isBorderTop()){
+					System.out.println("aqui é a borda lateral Superior direito!");
+				}else if(labirinties[x][y-1].isBorderTop() && labirinties[x][y-1].isBorderLeft()){
+					System.out.println("aqui é a borda lateral Superior Esquerdo!");
+				}else if(labirinties[x][y-1].isBorderTop()){
+					System.out.println("aqui é a borda lateral Superior!");
+				}else{
+					System.out.println(( ( wall ) labirinties[x][y-1].getContaint() ).msg());
+				}
+			}
+		}
+
+
+		//bottom
+		static void goBottom(Warrior w){
+			
+			joeSystem.out.println(labirinties[x][y+1].getContaint().getClass().getName());
+			
+			if(labirinties[(x)][y+1].getContaint() == null && !labirinties[(x)][y+1].isBorder()){
+				labirinties[x][y+1].setContaint(w);
+
+				//nova posição do guerreiro
+				w.setX(x);
+				w.setY(y+1);
+				
+				//deixa nulo a posição anterior do guerreiro
+				labirinties[x][y].setContaint(null);
+
+				//incrementando o valor da posição y
+				y++;
+
+				System.out.println("guerreiro esta no x = "+x);
+				System.out.println("guerreiro esta no y = "+y);
+
+			}else{
+				if(labirinties[x][y+1].isBorderRight() && labirinties[x][y+1].isBorderBottom()){
+					System.out.println("aqui é a borda lateral Inferior direito!");
+				}else if(labirinties[x][y+1].isBorderBottom() && labirinties[x][y+1].isBorderLeft()){
+					System.out.println("aqui é a borda lateral Inferior Esquerdo!");
+				}else if(labirinties[x][y+1].isBorderBottom()){
+					System.out.println("aqui é a borda Inferior!");
+				}else if(labirinties[x][y+1].getContaint().getClass().getName() == "Exit"){
+					
+				}
+				else{
+					System.out.println(( ( wall ) labirinties[x][y+1].getContaint() ).msg());
+				}
+			}
+		}
+
+}

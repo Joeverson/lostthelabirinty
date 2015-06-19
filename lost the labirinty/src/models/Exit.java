@@ -1,21 +1,23 @@
 package models;
 
-public class Exit implements Container{
+public class Exit extends Container{
 
 	public Exit() {
 		// TODO Auto-generated constructor stub
+		super.type = "exit";
+		super.msg = "Parabéns você conseguiu sair do labirinto!!";
 	}
 
-	@Override
+	
 	public String type() {
 		// TODO Auto-generated method stub
-		return "exit";
+		return super.type;
 	}
 
-	@Override
+	
 	public String msg() {
 		// TODO Auto-generated method stub
-		return "Parabéns você conseguiu sair do labirinto!!";
+		return super.msg;
 	}
 
 }

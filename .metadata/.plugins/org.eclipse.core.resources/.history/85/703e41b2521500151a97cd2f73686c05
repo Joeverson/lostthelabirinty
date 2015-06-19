@@ -1,0 +1,89 @@
+package aplications;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+
+import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JEditorPane;
+
+import controllers.GenerateLabirinty;
+
+import java.awt.Panel;
+
+public class ScreenInit extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField txtCommands;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					
+					//mandando gerar o labirinto
+					GenerateLabirinty.generate(5);
+					
+					ScreenInit frame = new ScreenInit();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public ScreenInit() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JTextArea txtrArea = new JTextArea();		
+		txtrArea.setBounds(205, 12, 231, 218);
+		txtrArea.setEditable(false);		
+		contentPane.add(txtrArea);
+		
+		Panel panel = new Panel();
+		panel.setBounds(12, 10, 184, 220);
+		contentPane.add(panel);
+		
+		
+		txtCommands = new JTextField();
+		txtCommands.setBounds(12, 243, 416, 19);
+		txtCommands.setFocusable(true);
+		
+		
+		txtCommands.addKeyListener(new KeyAdapter() {  
+			  
+		     public void keyPressed(KeyEvent evt) {
+		    	 if(evt.getKeyCode() == 10){
+		    		 txtrArea.append(GenerateLabirinty.go(txtCommands.getText())+"\n");
+		    		 txtCommands.setText("");
+		    	 }
+		     }  
+		}); 
+		
+		
+		contentPane.add(txtCommands);
+		txtCommands.setColumns(10);
+		
+		//setVisible(true);
+	}
+}

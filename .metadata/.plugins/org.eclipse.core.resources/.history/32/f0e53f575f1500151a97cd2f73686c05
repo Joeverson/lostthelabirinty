@@ -1,0 +1,6 @@
+package models;
+
+public abstract class Container {
+	protected String type;
+	protected String msg;
+}

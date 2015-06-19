@@ -2,18 +2,21 @@ package aplications;
 
 import java.util.Scanner;
 
+import models.Warrior;
 import controllers.GenerateLabirinty;
 
 public class aplications0 {
 
 	public static void main(String[] args) {
+		GenerateLabirinty.welcome("marcos");
+		
 		GenerateLabirinty.generate(6);
 		Scanner sc = new Scanner(System.in);
 		String step;
 		
 		do{
 			step = sc.nextLine();
-			GenerateLabirinty.steps(step);
+			GenerateLabirinty.go(step);
 			
 		}while(true);
 	}

@@ -1,20 +1,20 @@
 package models;
 
-public class wall implements Container{
-	private String type = "wall";
+public class wall extends Container{
 	
-	public wall() {}
+	public wall() {
+		super.msg = "ohh! uma parede aqui.";
+		super.type = "wall";
+	}
 
-	@Override
+
 	public String type() {
 		// TODO Auto-generated method stub
-		return this.type;
+		return super.type;
 	}
 
-	@Override
 	public String msg() {
 		// TODO Auto-generated method stub
-		return "ohh! uma parede aqui.";
+		return super.msg;
 	}
-
 }
