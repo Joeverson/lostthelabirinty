@@ -58,12 +58,12 @@ public class GenerateLabirinty {
 		System.out.println("guerreiro esta no y = "+warrior.getY());
 	}
 
-	//metodo para gerar o labirinto
+	//metodo para gerar o labirinto novo a cada saida
 	public static void reloadLabirintyLevel(Warrior w){
 		warrior = w;
 		
 		//criando o labirinto
-		createLabireinty(lvLabirinty+2);
+		createLabireinty(lvLabirinty+5);
 
 		// gerando paredes
 		addWall();

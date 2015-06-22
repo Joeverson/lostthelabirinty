@@ -1,0 +1,9 @@
+package models;
+
+public class Weapom {
+
+	public Weapom() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

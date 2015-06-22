@@ -1,0 +1,15 @@
+package models;
+
+public class Monster {	
+	private String name;
+	private int x;
+	private int y;
+	private int lv;
+	private int hp;
+	
+	
+	public Monster() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

@@ -32,7 +32,14 @@ public class Move{
 	
 	
 	public static String status(){
-		return "Coord X: "+x+"\nCoord Y: "+y;
+		int lv;
+		
+		if(warrior == null)
+			lv = 1;
+		else
+			lv = warrior.getLv();
+		
+		return "Coord X: "+x+"\nCoord Y: "+y+"\n\nLV: "+lv;
 	}
 	
 

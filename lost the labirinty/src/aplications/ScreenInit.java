@@ -26,6 +26,7 @@ public class ScreenInit extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtCommands;
+	private int countLines = 0;
 
 	/**
 	 * Launch the application.
@@ -51,6 +52,7 @@ public class ScreenInit extends JFrame {
 	 * Create the frame.
 	 */
 	public ScreenInit() {
+				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -86,9 +88,18 @@ public class ScreenInit extends JFrame {
 			  
 		     public void keyPressed(KeyEvent evt) {
 		    	 if(evt.getKeyCode() == 10){
+		    		 
+		    		 //condicional para limpar a tela quando tiver algumas linhas já lá.
+		    		 if(countLines == 10){
+		    			 txtrArea.setText("");
+		    			 countLines = -1;
+		    		 }
+		    		 
 		    		 txtrArea.append(GenerateLabirinty.go(txtCommands.getText())+"\n");
 		    		 textAreaCoodenadas.setText(Move.status());
 		    		 txtCommands.setText("");
+		    		 
+		    		 countLines++;
 		    	 }
 		     }  
 		}); 
@@ -97,6 +108,7 @@ public class ScreenInit extends JFrame {
 		contentPane.add(txtCommands);
 		txtCommands.setColumns(10);
 		
-		//setVisible(true);
-	}
+	
+	}	
+	
 }
