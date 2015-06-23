@@ -1,0 +1,17 @@
+package controllers;
+
+import models.Warrior;
+
+public class EventsLabrinty {
+
+	public EventsLabrinty() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	//evento que sube o lv do guerreiro e recarega o labirinto
+	public static void levelUp(Warrior warrior){
+		warrior.setLv(warrior.getLv()+1);
+		GenerateLabirinty.reloadLabirintyLevel(warrior);
+	}
+
+}

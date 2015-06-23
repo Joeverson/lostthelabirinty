@@ -1,0 +1,34 @@
+package controllers;
+
+import templates.Warrior;
+/*
+ * coisas para fazer...
+ * 
+ * --verificar se o guerreiro já existe no banco, caso sim traga as informações dele e monte no labirinto
+ * -- caso não tenha crie um e jogue-o no db
+ * 
+ * */
+public class EventsLabrinty {
+
+	private static Warrior warrior;
+	
+	public EventsLabrinty() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	//evento que sube o lv do guerreiro e recarega o labirinto
+	public static void levelUp(Warrior warrior){
+		warrior.setLv(warrior.getLv()+1);
+		warrior.setHp(warrior.getHp()+2);
+		GenerateLabirinty.reloadLabirintyLevel(warrior);
+	}
+	
+	public static void GenerateLab(){
+		GenerateLabirinty.generate(8, warrior);
+	}
+	
+	public static void createWarrior(String str){
+		warrior = new Warrior(str);
+	}
+
+}

@@ -1,0 +1,11 @@
+package DAOjpa;
+
+import templates.Warrior;
+
+public class DAOWarrior extends DAO<Warrior>{
+
+	public DAOWarrior() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

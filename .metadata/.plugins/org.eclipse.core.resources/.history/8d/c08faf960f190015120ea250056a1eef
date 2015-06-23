@@ -1,0 +1,14 @@
+package aplications;
+
+import javax.swing.JPanel;
+
+public class Img extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public Img() {
+
+	}
+
+}

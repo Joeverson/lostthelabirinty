@@ -6,10 +6,11 @@ import java.util.Scanner;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT;
 
-import models.Exit;
-import models.ObjectLabirinty;
-import models.Warrior;
-import models.wall;
+import templates.Exit;
+import templates.ObjectLabirinty;
+import templates.Warrior;
+import templates.Weapon;
+import templates.wall;
 
 
 public class GenerateLabirinty {
@@ -25,14 +26,14 @@ public class GenerateLabirinty {
 	// obj guerreiro 
 	private static Warrior warrior;
 
-	//lista de comandos
-	private static final String[] commandsSteps = {"left","right","top","bottom","leftTop","rightTop","bottomTop","bottomTop"}; 
-
-
 	public GenerateLabirinty() {}
 
 	//metodo para gerar o labirinto
-	public static void generate(int i){
+	public static void generate(int i, Warrior w){
+		//passando o guerreiro para a classe
+		warrior = w;
+		
+		
 		//criando o labirinto
 		createLabireinty(i);
 
@@ -61,9 +62,10 @@ public class GenerateLabirinty {
 	//metodo para gerar o labirinto novo a cada saida
 	public static void reloadLabirintyLevel(Warrior w){
 		warrior = w;
+		lvLabirinty += 5;
 		
 		//criando o labirinto
-		createLabireinty(lvLabirinty+5);
+		createLabireinty(lvLabirinty);
 
 		// gerando paredes
 		addWall();
@@ -81,12 +83,6 @@ public class GenerateLabirinty {
 		Move.setLabirinty(labirinties);
 	}
 
-
-	public static void welcome(String name){
-		
-		warrior = new Warrior(name);
-
-	}
 
 	//adicionar paredes
 	public static void addWall(){
@@ -108,7 +104,8 @@ public class GenerateLabirinty {
 		for(int k = 0; k < i; k++){			
 			for(int j = 0; j < i; j++){
 				labirinties[k][j] = new ObjectLabirinty();
-
+				
+				// gerando as barreiras do labirinto
 				if(k == 0 && j == 0){ //parte superior esquerdo
 					labirinties[k][j].setBorder(true);
 					labirinties[k][j].setBorderLeft(true);
@@ -153,23 +150,15 @@ public class GenerateLabirinty {
 			x = rnd.nextInt(lvLabirinty);
 			y = rnd.nextInt(lvLabirinty);
 
-
-			// consdicionais para inpedir que objetos sejam colocados nas bordas
-			if(x == 0){
-				x++;
-			}else if(x == lvLabirinty){
-				x -= 2;
-			}
-
-			if(y == 0){
-				y++;
-			}else if(y == lvLabirinty){
-				y -= 2;
-			}
-
-			//---
-
+			//para evitar que o warrior seja colocado fora dos limites
+			if(x == 0 || x == lvLabirinty-1 || y == 0 || y == lvLabirinty-1) continue;
+			
+			
 			if(labirinties[x][y].getContaint() == null){
+							
+				//dando arma inicial para o guerreiro
+				w.setArma(new Weapon(w.getLv()));
+				
 				labirinties[x][y].setContaint(w);
 
 				//Seta as posições do guerreiro
@@ -178,11 +167,11 @@ public class GenerateLabirinty {
 
 				break;
 			}
-			System.out.println("ocupado!!");// teste p tirar isso
+			System.out.println("conflito na posição ao colocar o warrior!!");// teste p tirar isso
 		}
 	}
 
-	//colocar player no jogo
+	//colocar a saida no jogo
 	public static void addExit(){
 		Random rnd = new Random();
 		int x;
@@ -192,25 +181,16 @@ public class GenerateLabirinty {
 			x = rnd.nextInt(lvLabirinty);
 			y = rnd.nextInt(lvLabirinty);
 
-			// consdicionais para inpedir que objetos sejam colocados nas bordas
-			if(x == 0){
-				x++;
-			}else if(x == lvLabirinty){
-				x -= 2;
-			}
-
-			if(y == 0){
-				y++;
-			}else if(y == lvLabirinty){
-				y -= 2;
-			}					
-			//---
-
-			if(labirinties[x][y].getContaint() == null){
+			//para evitar que o warrior seja colocado fora dos limites
+			if(x == 0 || x == lvLabirinty-1 || y == 0 || y == lvLabirinty-1) continue;
+			
+			if(labirinties[x][y].getContaint() == null){				
 				labirinties[x][y].setContaint(new Exit());
 				System.out.println("o exit tá no de x = "+x+" y = "+y);
 				break;
 			}
+			
+			System.out.println("conflito ao colocar a saida no labirinto!");
 		}
 	}
 

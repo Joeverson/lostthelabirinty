@@ -1,0 +1,9 @@
+package DAOjpa;
+
+public class DAOWarrior {
+
+	public DAOWarrior() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

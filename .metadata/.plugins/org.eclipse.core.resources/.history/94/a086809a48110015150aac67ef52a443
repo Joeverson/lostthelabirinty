@@ -1,6 +1,0 @@
-package models;
-
-public class Container {
-	public String type;
-	public String msg;
-}

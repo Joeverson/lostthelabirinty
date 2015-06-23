@@ -1,9 +1,0 @@
-package models;
-
-public class Exit {
-
-	public Exit() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

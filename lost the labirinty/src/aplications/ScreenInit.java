@@ -2,8 +2,11 @@ package aplications;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -17,6 +20,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JEditorPane;
 
+import controllers.EventsLabrinty;
 import controllers.GenerateLabirinty;
 import controllers.Move;
 
@@ -35,10 +39,10 @@ public class ScreenInit extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
+
 					//mandando gerar o labirinto
-					GenerateLabirinty.generate(6);
-					
+					EventsLabrinty.GenerateLab();
+
 					ScreenInit frame = new ScreenInit();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -52,63 +56,85 @@ public class ScreenInit extends JFrame {
 	 * Create the frame.
 	 */
 	public ScreenInit() {
-				
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(300, 100, 650, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JTextArea txtrArea = new JTextArea();		
-		txtrArea.setBounds(205, 12, 231, 218);
+		txtrArea.setBounds(235, 20, 390, 400);
 		txtrArea.setEditable(false);		
 		JScrollPane scroll = new JScrollPane(txtrArea);
-        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 		contentPane.add(scroll);
 		contentPane.add(txtrArea);
-		
+
 		//-> textarea
 		JTextArea textAreaCoodenadas = new JTextArea();
-		textAreaCoodenadas.setBounds(12, 165, 160, 64);
-		
+		textAreaCoodenadas.setBounds(25, 300, 200, 120);
+		textAreaCoodenadas.setEditable(false);
+
 		//apresenta onde o guerreiro esta e qual o lv dele
 		textAreaCoodenadas.setText(Move.status());
-		
+
 		contentPane.add(textAreaCoodenadas);
-				
-		
+
+
 		txtCommands = new JTextField();
-		txtCommands.setBounds(12, 243, 416, 19);
-		txtCommands.setFocusable(true);
-		
-		
+		txtCommands.setBounds(25, 430, 600, 30);
+		txtCommands.requestFocus();
+
+
 		txtCommands.addKeyListener(new KeyAdapter() {  
-			  
-		     public void keyPressed(KeyEvent evt) {
-		    	 if(evt.getKeyCode() == 10){
-		    		 
-		    		 //condicional para limpar a tela quando tiver algumas linhas já lá.
-		    		 if(countLines == 10){
-		    			 txtrArea.setText("");
-		    			 countLines = -1;
-		    		 }
-		    		 
-		    		 txtrArea.append(GenerateLabirinty.go(txtCommands.getText())+"\n");
-		    		 textAreaCoodenadas.setText(Move.status());
-		    		 txtCommands.setText("");
-		    		 
-		    		 countLines++;
-		    	 }
-		     }  
+
+			public void keyPressed(KeyEvent evt) {
+				if(evt.getKeyCode() == 10){
+
+					//condicional para limpar a tela quando tiver algumas linhas já lá.
+					if(countLines == 25){
+						txtrArea.setText("");
+						countLines = -1;
+					}
+
+					// area onde as informações de ações é posto
+					txtrArea.append(GenerateLabirinty.go(txtCommands.getText())+"\n");
+
+					// area de info do persona
+					textAreaCoodenadas.setText(Move.status());
+
+					//limpar a tela
+					txtCommands.setText("");
+
+					// incremento de contador para apagar as linhas de acordo com a condicional
+					countLines++;
+				}
+			}  
 		}); 
-		
-		
+
+
 		contentPane.add(txtCommands);
 		txtCommands.setColumns(10);
-		
-	
+
+
+		//carrega a imagem passando o nome da mesma  
+		ImageIcon img = new ImageIcon("http://t1.gstatic.com/images?q=tbn:ANd9GcSendAm4sHgq0-4pGjH0M_cBBsTjd3F_CBPaT8E3ocOksuBbMpLvQ");  
+		//pega a altura e largura  
+		int altura = img.getIconHeight();  
+		int largura = img.getIconWidth();  
+
+		//adiciona a imagem em um label  
+		JLabel label = new JLabel(img);  
+		//adiciona a altura e largura em outro label  
+		JLabel label2 = new JLabel("Altura: "+altura+"      Largura: "+largura);  
+
+		contentPane.add(label, BorderLayout.NORTH);  
+		contentPane.add(label2, BorderLayout.SOUTH);  
+
+
 	}	
-	
+
 }

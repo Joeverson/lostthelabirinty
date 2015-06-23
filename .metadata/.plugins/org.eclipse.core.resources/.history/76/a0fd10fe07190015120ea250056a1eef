@@ -1,0 +1,14 @@
+package controllers;
+
+public class EventsLabrinty {
+
+	public EventsLabrinty() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public static void levelUp(Warrior warrior){
+		warrior.setLv(warrior.getLv()+1);
+		GenerateLabirinty.reloadLabirintyLevel(warrior);
+	}
+
+}
