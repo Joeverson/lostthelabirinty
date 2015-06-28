@@ -1,4 +1,4 @@
-# lost the labirinth
+# lost the labyrinth
 **It's one game just text**
 
 > Project of persistence IFPB TSI - 2015.1
