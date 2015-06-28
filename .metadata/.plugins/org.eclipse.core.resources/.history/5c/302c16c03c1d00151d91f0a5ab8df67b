@@ -1,11 +1,7 @@
 package aplications;
 
-import DAODb4o.DAO;
-import DAODb4o.DAOMonsters;
-
-//import DAOjpa.DAO;
-//import DAOjpa.DAOMonsters;
-
+import DAOjpa.DAO;
+import DAOjpa.DAOMonsters;
 import templates.Monster;
 
 public class AplGerarMonsters {

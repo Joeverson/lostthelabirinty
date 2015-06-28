@@ -93,7 +93,6 @@ public abstract class DAO<T> implements DAOInterface<T> {
 	public static void commit(){
 		try {
 			manager.commit();
-			close();
 		} 
 		catch (UniqueFieldValueConstraintViolationException e) {
 			throw new RuntimeException ("atributo duplicado  " + e.getMessage());
@@ -109,7 +108,6 @@ public abstract class DAO<T> implements DAOInterface<T> {
 	public List<T> readAll(){
 		Class<T> type = (Class<T>) ((ParameterizedType) this.getClass()
                 .getGenericSuperclass()).getActualTypeArguments()[0];
-		System.out.println("nome da classe que retornara uma lista é: "+type.getSimpleName());
 		return (List<T>) manager.query(type);
 	}
 

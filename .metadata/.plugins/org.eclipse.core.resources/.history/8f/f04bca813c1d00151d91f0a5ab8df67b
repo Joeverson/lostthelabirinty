@@ -6,16 +6,10 @@ import java.util.Scanner;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT;
 
-import DAODb4o.DAO;
-import DAODb4o.DAOMonsters;
-import DAODb4o.DAOWarrior;
-import DAODb4o.DAOWeapon;
-
-//import DAOjpa.DAO;
-//import DAOjpa.DAOMonsters;
-//import DAOjpa.DAOWarrior;
-//import DAOjpa.DAOWeapon;
-
+import DAOjpa.DAO;
+import DAOjpa.DAOMonsters;
+import DAOjpa.DAOWarrior;
+import DAOjpa.DAOWeapon;
 import templates.Exit;
 import templates.Monster;
 import templates.ObjectLabirinty;
