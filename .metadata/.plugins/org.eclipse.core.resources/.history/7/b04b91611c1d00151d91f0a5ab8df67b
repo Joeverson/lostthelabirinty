@@ -1,0 +1,48 @@
+package DAOjpa;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+import templates.Weapon;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+
+import templates.Warrior;
+
+public class DAOWeapon extends DAO<Weapon>{
+
+	public DAOWeapon() {}
+
+	@SuppressWarnings("unchecked")
+	public Weapon getOneMonsterAleatory(){
+		ArrayList<Weapon> monsters;
+		Random rnd = new Random();
+		Query q;
+
+		try{			
+			if((q = manager.createQuery("SELECT m FROM Monster m")) != null){
+				monsters = (ArrayList<Weapon>) q.getResultList();
+				return monsters.get(rnd.nextInt(monsters.size()));
+			}
+			System.out.println("não encontrou nenhum monstro no banco");
+			return null;
+		}catch(NoResultException e){
+			return null;
+		}
+	}
+
+	//update status warrior
+	public int updateMyWeapon (Warrior w){
+		try{			
+			Query select =  manager.createQuery("SELECT arm.ARMA_id_container FROM Warrior w INNER JOIN weapon arm on (w.ARMA_id_container = arm.id_container) WHERE w.name = '"+ w.getName() +"'");
+			
+			Query q = manager.createQuery("UPDATE Weapon w SET w.lv = "+w.getArma().getLv()+" , w.name = "+w.getArma().getName()+" WHERE ARMA_id_container = '"+ select.getSingleResult()+"'");
+			return  q.executeUpdate();							
+
+		}catch(NoResultException e){
+			return 0;
+		}
+	}
+
+
+}

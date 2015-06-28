@@ -1,0 +1,47 @@
+package DAOjpa;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+
+import templates.Monster;
+import templates.Warrior;
+
+public class DAOMonsters extends DAO<Monster>{
+
+	public DAOMonsters() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Monster getOneMonsterAleatory(){
+		ArrayList<Monster> monsters;
+		Random rnd = new Random();
+		Query q;
+		
+		try{			
+			if((q = manager.createQuery("SELECT m FROM Monster m")) != null){
+				monsters = (ArrayList<Monster>) q.getResultList();
+				return monsters.get(rnd.nextInt(monsters.size()));
+			}
+			System.out.println("não encontrou nenhum monstro no banco");
+			return null;
+		}catch(NoResultException e){
+			return null;
+		}
+	}
+	
+	//update status warrior
+	public int updateMyMonster (Warrior w){
+		try{			
+			Query q = manager.createQuery("UPDATE Warrior w SET w.lv = "+w.getLv()+" , w.hp = "+w.getHp()+" , w.arma_id_container = " + w.getArma() + " WHERE w.name = '" + w.getName() +"'");
+			return  q.executeUpdate();							
+			
+		}catch(NoResultException e){
+			return 0;
+		}
+	}
+
+}

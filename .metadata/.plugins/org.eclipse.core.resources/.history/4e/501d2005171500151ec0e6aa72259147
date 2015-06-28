@@ -1,6 +1,0 @@
-package models;
-
-class Container {
-	public String type(){ return ""; };
-	public String msg(){ return "";};
-}

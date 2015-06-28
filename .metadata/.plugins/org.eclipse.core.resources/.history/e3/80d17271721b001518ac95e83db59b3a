@@ -1,0 +1,39 @@
+package DAOjpa;
+
+import javax.persistence.*;
+
+import templates.Warrior;
+
+public class DAOWarrior extends DAO<Warrior>{
+
+	public DAOWarrior() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Warrior findMyWarrior (String str){
+		try{			
+			Query q = manager.createQuery("SELECT w FROM Warrior w");
+			Warrior w = (Warrior) q.getSingleResult();
+			
+			//caso não exista ele crie
+			if(str.equals(w.getName()))
+				return w;
+				
+			return null;
+		}catch(NoResultException e){
+			return null;
+		}
+	}
+	
+	//update status warrior
+	public int updateMyWarrior (Warrior w){
+		try{			
+			Query q = manager.createQuery("UPDATE Warrior w SET w.lv = "+w.getLv()+" , w.hp = "+w.getHp()+" , w.arma_id_container = " + w.getArma() + " WHERE w.name = " + w.getName());
+			return  q.executeUpdate();							
+			
+		}catch(NoResultException e){
+			return 0;
+		}
+	}
+
+}

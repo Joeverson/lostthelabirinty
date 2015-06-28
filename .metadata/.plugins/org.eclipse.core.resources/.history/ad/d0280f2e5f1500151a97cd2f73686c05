@@ -1,6 +1,0 @@
-package models;
-
-abstract class Container {
-	protected String type;
-	protected String msg;
-}

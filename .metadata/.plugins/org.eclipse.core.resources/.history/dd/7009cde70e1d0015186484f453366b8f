@@ -1,0 +1,129 @@
+/**IFPB - Curso SI - Disciplina de POB
+ * @author Prof Fausto Ayres
+ */
+
+package DAODb4o;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
+
+import templates.Container;
+import templates.Monster;
+import templates.Warrior;
+
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
+import com.db4o.config.EmbeddedConfiguration;
+import com.db4o.constraints.UniqueFieldValueConstraintViolationException;
+import com.db4o.cs.Db4oClientServer;
+import com.db4o.cs.config.ClientConfiguration;
+import com.db4o.defragment.Defragment;
+
+
+public abstract class DAO<T> implements DAOInterface<T> {
+	protected static ObjectContainer manager;
+	private static String arquivo = "banco.db4o";
+
+	public static void open(){
+		if(manager==null){			
+			// deletar o banco
+			// new File(arquivo).delete();
+			
+			EmbeddedConfiguration config = Db4oEmbedded.newConfiguration();
+			// habilitar  uso cliente-servidor
+			//ClientConfiguration config = Db4oClientServer.newClientConfiguration( ) ;
+	
+			config.common().messageLevel(0);   //0,1,2,3,4
+			config.common().objectClass(Container.class).cascadeOnUpdate(true);
+			config.common().objectClass(Container.class).cascadeOnDelete(true);
+			config.common().objectClass(Container.class).cascadeOnActivate(true);
+			config.common().objectClass(Warrior.class).cascadeOnUpdate(true);
+			config.common().objectClass(Warrior.class).cascadeOnDelete(true);
+			config.common().objectClass(Warrior.class).cascadeOnActivate(true);
+			
+			// 		indexacao de atributos
+			config.common().objectClass(Warrior.class).objectField("name").indexed(true);
+			config.common().objectClass(Monster.class).objectField("nome").indexed(true);
+
+	
+			//Backup.criar("banco.db4o");
+			//System.out.println("backup realizado com sucesso !");
+			
+			manager = Db4oEmbedded.openFile(config, "banco.db4o");
+			// habilitar para uso cliente-servidor
+			//manager = Db4oClientServer.openClient(config,"localhost",34000,"usuario1","senha1");	
+			
+			//long databaseSize = manager.ext().systemInfo().totalSize();
+			//System.out.println("Database size: "+databaseSize);
+			
+			IDManager.inicializar(manager);
+			//-----------------------------------
+		}
+	}
+
+	public static void close(){
+		if(manager!=null) {
+			manager.close();
+			manager=null;
+		}
+	}
+
+	public void create(T obj){
+		manager.store( obj );
+	}
+	
+	public abstract T read(Object chave) throws Exception;  //implementado nos dao especificos
+	
+	public T update(T obj){
+		manager.store(obj);
+		return obj;
+	}
+	public void delete(T obj) {
+		manager.delete(obj);
+	}
+	public void refresh(T obj){
+		manager.ext().refresh(obj, Integer.MAX_VALUE);
+	}
+	
+	//--------transação---------------
+	public static void begin(){	}
+	
+	public static void commit(){
+		try {
+			manager.commit();
+		} 
+		catch (UniqueFieldValueConstraintViolationException e) {
+			throw new RuntimeException ("atributo duplicado  " + e.getMessage());
+		}
+	}
+	public static void flush(){	//commit intermediario
+		commit();
+	}
+	public static void rollback(){
+		manager.rollback();
+	}
+	@SuppressWarnings("unchecked")
+	public List<T> readAll(){
+		Class<T> type = (Class<T>) ((ParameterizedType) this.getClass()
+                .getGenericSuperclass()).getActualTypeArguments()[0];
+		return (List<T>) manager.query(type);
+	}
+
+	
+	// -------------------- metodo utilitario ------------------------------
+	public static void backup (){
+		try {
+			if (new File(arquivo).exists()) {	
+				if (new File(arquivo+".bak").exists()) 
+					new File(arquivo+".bak").delete();
+				Defragment.defrag(arquivo, arquivo+".bak");
+				System.out.println("backup realizado com sucesso !");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		};
+	}
+
+}

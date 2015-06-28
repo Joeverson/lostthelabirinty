@@ -1,0 +1,9 @@
+package aplications;
+
+public class AplGerarMonster {
+
+	public AplGerarMonster() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

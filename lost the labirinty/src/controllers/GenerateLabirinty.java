@@ -6,7 +6,12 @@ import java.util.Scanner;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT;
 
+import DAOjpa.DAO;
+import DAOjpa.DAOMonsters;
+import DAOjpa.DAOWarrior;
+import DAOjpa.DAOWeapon;
 import templates.Exit;
+import templates.Monster;
 import templates.ObjectLabirinty;
 import templates.Warrior;
 import templates.Weapon;
@@ -15,6 +20,9 @@ import templates.wall;
 
 public class GenerateLabirinty {
 	protected static ObjectLabirinty[][] labirinties;
+	
+	//classe de abstrção do banco de dados (monstros)
+	private static DAOMonsters daomonsters = new DAOMonsters();
 
 	//nivel de labirinto -- tamando do quadrado
 	protected static int lvLabirinty;
@@ -32,10 +40,12 @@ public class GenerateLabirinty {
 	public static void generate(int i, Warrior w){
 		//passando o guerreiro para a classe
 		warrior = w;
+		lvLabirinty = i + 7;
+		
 		
 		
 		//criando o labirinto
-		createLabireinty(i);
+		createLabireinty(lvLabirinty);
 
 		// gerando paredes
 		addWall();
@@ -48,7 +58,10 @@ public class GenerateLabirinty {
 
 		// adiciona o jogador
 		addWarrior(warrior);
-
+		
+		//adicionando monstros
+		addMonster();
+		
 		//seta o labirinto já com o guerreiro no jogo
 		Move.setLabirinty(labirinties);
 
@@ -78,6 +91,9 @@ public class GenerateLabirinty {
 
 		// adiciona o jogador
 		addWarrior(warrior);
+		
+		//adicionando monstros
+		addMonster();
 
 		//seta o labirinto já com o guerreiro no jogo
 		Move.setLabirinty(labirinties);
@@ -97,8 +113,7 @@ public class GenerateLabirinty {
 
 	}
 
-	public static void createLabireinty(int i){
-		lvLabirinty = i;
+	public static void createLabireinty(int i){		
 		labirinties = new ObjectLabirinty[i][i];
 
 		for(int k = 0; k < i; k++){			
@@ -142,7 +157,7 @@ public class GenerateLabirinty {
 
 	//colocar player no jogo
 	public static void addWarrior(Warrior w){
-		Random rnd = new Random();
+		Random rnd = new Random();		
 		int x , y;
 
 
@@ -155,10 +170,6 @@ public class GenerateLabirinty {
 			
 			
 			if(labirinties[x][y].getContaint() == null){
-							
-				//dando arma inicial para o guerreiro
-				w.setArma(new Weapon(w.getLv()));
-				
 				labirinties[x][y].setContaint(w);
 
 				//Seta as posições do guerreiro
@@ -209,7 +220,30 @@ public class GenerateLabirinty {
 
 	// passa os comandos de walk
 	public static String go(String step){
-		return Move.steps(step);
+		return Commands.steps(step);
+	}
+	
+	// cria monstros com aleatorios pegando os nomes que estão no banco de dados
+	public static void addMonster(){
+			
+		int quantWallForLines = lvLabirinty/3;		
+		Random rnd = new Random();
+		
+		//pega um monstro aleatorio criado no banco 
+		Monster obj = daomonsters.getOneMonsterAleatory();
+		
+		if(obj != null){
+			obj.setLv(lvLabirinty);
+			
+			for(int k = 0; k < lvLabirinty; k++){			
+				for(int j = 0; j < quantWallForLines; j++){
+					labirinties[k][rnd.nextInt(quantWallForLines)].setContaint(obj);					
+				}
+			}
+			
+			System.out.println("monstro "+obj.getName()+" adicionado! com hp: "+obj.getHp());
+		}
+			
 	}
 
 

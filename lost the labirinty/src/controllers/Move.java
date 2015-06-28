@@ -33,6 +33,7 @@ public class Move{
 		warrior = w;
 		x = warrior.getX();
 		y = warrior.getY();
+		Commands.setWarrior(warrior);
 	}
 
 
@@ -53,30 +54,6 @@ public class Move{
 	}
 
 
-	//chamada de acçoes de passos
-	public static String steps(String steps){
-		switch(steps){
-		case "left":
-			return goLeft(warrior);
-		case "right":
-			return goRight(warrior);
-		case "top":
-			return goTop(warrior);					
-		case "bottom":
-			return goBottom(warrior);					
-		case "lado e cima":
-			return goTopLeft(warrior);					
-		case "lado r cima":
-			return goTopRight(warrior);					
-		case "lado e baixo":
-			return goBottomLeft(warrior);					
-		case "lado r baixo":
-			return goBottomRight(warrior);					
-		default:
-			return "Comando invalido! \n\n";				
-		}
-	}
-
 	// funções de navegação
 
 
@@ -95,6 +72,7 @@ public class Move{
 
 			// decrementando a posição x do guerreiro
 			x--;
+			Commands.setWarrior(warrior);
 
 			System.out.println("......................\n\nguerreiro esta no x = "+x+"\nguerreiro esta no y = "+y);
 			return msgLivre;
@@ -133,7 +111,7 @@ public class Move{
 
 			//imcrementando a posição x do guerreiro
 			x++;
-
+			Commands.setWarrior(warrior);
 			System.out.println("......................\n\nguerreiro esta no x = "+x+"\nguerreiro esta no y = "+y);
 			return msgLivre;
 
@@ -152,7 +130,7 @@ public class Move{
 					EventsLabrinty.levelUp(warrior);
 					return msgExit;
 				}
-
+				
 				return obj.msg;
 			}
 		}
@@ -172,7 +150,7 @@ public class Move{
 
 			// decrementando o valor da posição y
 			y--;
-
+			Commands.setWarrior(warrior);
 			System.out.println("......................\n\nguerreiro esta no x = "+x+"\nguerreiro esta no y = "+y);
 			return msgLivre;
 
@@ -190,7 +168,7 @@ public class Move{
 					EventsLabrinty.levelUp(warrior);
 					return msgExit;
 				}
-
+				
 				return obj.msg;
 			}
 
@@ -212,7 +190,7 @@ public class Move{
 
 			//incrementando o valor da posição y
 			y++;
-
+			Commands.setWarrior(warrior);
 			System.out.println("......................\n\nguerreiro esta no x = "+x+"\nguerreiro esta no y = "+y);
 			return msgLivre;
 
@@ -230,7 +208,7 @@ public class Move{
 					EventsLabrinty.levelUp(warrior);
 					return msgExit;
 				}
-
+				
 				return obj.msg;
 			}
 		}			
@@ -254,7 +232,7 @@ public class Move{
 			// decrementando o valor da posição y
 			y--;
 			x--;
-
+			Commands.setWarrior(warrior);
 			System.out.println("......................\n\nguerreiro esta no x = "+x+"\nguerreiro esta no y = "+y);
 			return msgLivre;
 
@@ -294,7 +272,7 @@ public class Move{
 			//imcrementando a posição x do guerreiro
 			x++;
 			y--;
-
+			Commands.setWarrior(warrior);
 			System.out.println("......................\n\nguerreiro esta no x = "+x+"\nguerreiro esta no y = "+y);
 			return msgLivre;
 
@@ -313,7 +291,7 @@ public class Move{
 					EventsLabrinty.levelUp(warrior);
 					return msgExit;
 				}
-
+				
 				return obj.msg;
 			}
 		}
@@ -335,7 +313,7 @@ public class Move{
 			//incrementando o valor da posição y
 			y++;
 			x--;
-
+			Commands.setWarrior(warrior);
 			System.out.println("......................\n\nguerreiro esta no x = "+x+"\nguerreiro esta no y = "+y);
 			return msgLivre;
 
@@ -353,7 +331,7 @@ public class Move{
 					EventsLabrinty.levelUp(warrior);
 					return msgExit;
 				}
-
+				
 				return obj.msg;
 			}
 		}			
@@ -375,7 +353,7 @@ public class Move{
 			//incrementando o valor da posição y
 			y++;
 			x++;
-
+			Commands.setWarrior(warrior);
 			System.out.println("......................\n\nguerreiro esta no x = "+x+"\nguerreiro esta no y = "+y);
 			return msgLivre;
 

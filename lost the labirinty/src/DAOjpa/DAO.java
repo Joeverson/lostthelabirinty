@@ -55,7 +55,9 @@ public class DAO<T> implements DAOInterface<T> {
 		//determinar o tipo (a classe) de T
 		Class<T> type = (Class<T>) ((ParameterizedType) this.getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
+		System.out.println("nome da classe que retornara uma lista é: "+type.getSimpleName());
 		Query query = manager.createQuery("select x from " + type.getSimpleName() + " x");
+		
 		return (List<T>) query.getResultList();
 	}
 

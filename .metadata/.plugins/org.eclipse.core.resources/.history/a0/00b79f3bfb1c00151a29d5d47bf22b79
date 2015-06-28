@@ -1,0 +1,9 @@
+package DAOjpa;
+
+public class DAOWeapon {
+
+	public DAOWeapon() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

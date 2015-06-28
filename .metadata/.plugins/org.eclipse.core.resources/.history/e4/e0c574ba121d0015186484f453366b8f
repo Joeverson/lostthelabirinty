@@ -1,0 +1,62 @@
+package controllers;
+
+import DAOjpa.DAO;
+import DAOjpa.DAOWarrior;
+import DAOjpa.DAOWeapon;
+import templates.Warrior;
+import templates.Weapon;
+/*
+ * coisas para fazer...
+ * 
+ * --verificar se o guerreiro já existe no banco, caso sim traga as informações dele e monte no labirinto
+ * -- caso não tenha crie um e jogue-o no db
+ * 
+ * */
+public class EventsLabrinty {
+
+	private static Warrior warrior;
+	private static DAOWarrior daowarrior = new DAOWarrior();	
+	
+	
+	public EventsLabrinty() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	//evento que sube o lv do guerreiro e recarega o labirinto
+	public static void levelUp(Warrior warrior){
+		warrior.setLv(warrior.getLv()+1);
+		warrior.setHp(warrior.getHp()+2);
+		
+		DAO.begin();
+		daowarrior.updateMyWarrior(warrior);
+		DAO.commit();
+		
+		GenerateLabirinty.reloadLabirintyLevel(warrior);
+	}
+	
+	public static void GenerateLab(){
+		GenerateLabirinty.generate(8, warrior);
+	}
+	
+	public static void createWarrior(String str){
+		Warrior w;
+		Weapon weapon = new Weapon(w.getLv());
+		DAOWeapon daoweapon = new DAOWeapon();
+		
+		DAO.begin();
+		
+		if((w = daowarrior.findMyWarrior(str)) == null){
+			w = new Warrior(str);
+			daowarrior.create(w);
+			
+			//dando arma inicial para o guerreiro
+			daoweapon.create(weapon);
+			w.setArma(weapon);
+			
+			DAO.commit();
+		}
+		
+		//atribuindo novo guerreiro	
+		warrior = w;
+	}
+}

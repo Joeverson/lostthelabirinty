@@ -23,6 +23,19 @@ public class Weapon extends Container{
 	public void setLv(int lv) {
 		this.lv = lv;
 	}
+	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getLv() {
+		return lv;
+	}
 
 	//força para ataque
 	public int force() {

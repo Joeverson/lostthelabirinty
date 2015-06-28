@@ -9,7 +9,9 @@ public class Warrior extends Container{
 	private Weapon arma;
 	private int hp;
 	private int lv = 1;
+	@Transient
 	private int x;
+	@Transient
 	private int y;
 	
 	public Warrior(){}

@@ -1,0 +1,9 @@
+package DAODb4o;
+
+public class DAOInterface {
+
+	public DAOInterface() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

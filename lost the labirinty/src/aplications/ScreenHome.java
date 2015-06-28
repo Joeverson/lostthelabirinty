@@ -56,6 +56,13 @@ public class ScreenHome extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JLabel lblQualOSeu = new JLabel("Qual o seu nome guerreiro?");
+		lblQualOSeu.setLabelFor(textField);
+		lblQualOSeu.setFont(new Font("FreeSans", Font.PLAIN, 12));
+		lblQualOSeu.setHorizontalAlignment(SwingConstants.CENTER);
+		lblQualOSeu.setBounds(67, 82, 318, 15);
+		contentPane.add(lblQualOSeu);
+		
 		//campo de texto
 		textField = new JTextField();
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -65,10 +72,12 @@ public class ScreenHome extends JFrame {
 		textField.addKeyListener(new KeyAdapter() {
 			public void keyPressed( KeyEvent e ){
 				if(e.getKeyCode() == 10){
+					lblQualOSeu.setText("Please Wait...");
 					EventsLabrinty.createWarrior(textField.getText());
 					setVisible(false);
 					
 					// chamando outra janela
+					System.out.println("chamando janela de jogo...");
 					ScreenInit init = new ScreenInit();
 					init.main(null);
 					
@@ -78,13 +87,6 @@ public class ScreenHome extends JFrame {
 		
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
-		JLabel lblQualOSeu = new JLabel("Qual o seu nome guerreiro?");
-		lblQualOSeu.setLabelFor(textField);
-		lblQualOSeu.setFont(new Font("FreeSans", Font.PLAIN, 12));
-		lblQualOSeu.setHorizontalAlignment(SwingConstants.CENTER);
-		lblQualOSeu.setBounds(67, 82, 318, 15);
-		contentPane.add(lblQualOSeu);
 
 	}
 }

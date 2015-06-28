@@ -1,0 +1,9 @@
+package DAOjpa;
+
+public class DAOMonsters {
+
+	public DAOMonsters() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

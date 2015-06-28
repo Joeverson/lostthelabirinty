@@ -95,7 +95,7 @@ public class ScreenInit extends JFrame {
 				if(evt.getKeyCode() == 10){
 
 					//condicional para limpar a tela quando tiver algumas linhas já lá.
-					if(countLines == 25){
+					if(countLines == 20){
 						txtrArea.setText("");
 						countLines = -1;
 					}

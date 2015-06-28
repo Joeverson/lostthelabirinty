@@ -1,0 +1,24 @@
+package aplications;
+
+import DAOjpa.DAO;
+import DAOjpa.DAOMonsters;
+import templates.Monster;
+
+public class AplGerarMonsters {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		DAOMonsters dao = new DAOMonsters();
+		
+		DAO.begin();
+		Monster mosterType001 = new Monster("crab-black", 1);
+		Monster mosterType002 = new Monster("fox-white", 2);
+		Monster mosterType003 = new Monster("birds", 3);
+		
+		dao.create(mosterType001);
+		dao.create(mosterType002);
+		dao.create(mosterType003);
+		DAO.close();
+	}
+
+}

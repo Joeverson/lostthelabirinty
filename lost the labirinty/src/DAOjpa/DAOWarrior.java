@@ -12,12 +12,22 @@ public class DAOWarrior extends DAO<Warrior>{
 	
 	public Warrior findMyWarrior (String str){
 		try{			
-			Query q = manager.createQuery("SELECT w FROM Warrior w");
-			Warrior w = (Warrior) q.getSingleResult();
-			System.out.println(w.getName());
-			return w;
+			Query q = manager.createQuery("SELECT w FROM Warrior w WHERE w.name = '" + str + "'");
+			return (Warrior) q.getSingleResult();
+			
 		}catch(NoResultException e){
 			return null;
+		}
+	}
+	
+	//update status warrior
+	public int updateMyWarrior (Warrior w){
+		try{			
+			Query q = manager.createQuery("UPDATE Warrior w SET w.lv = "+w.getLv()+" , w.hp = "+w.getHp()+" WHERE w.name = '" + w.getName() +"'");
+			return  q.executeUpdate();							
+			
+		}catch(NoResultException e){
+			return 0;
 		}
 	}
 
